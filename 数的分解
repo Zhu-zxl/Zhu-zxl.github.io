@@ -1,0 +1,45 @@
+＃把2019分解成3个各不相同的正整数之和，并且要求每个正整数都不包含数字2和4，一共有多少种不同的分解方法？
+请交换3个整数的顺序被视为同一种方法，例如1000 + 1001 + 18和1001 + 1000 + 18被视为同一种方法。
+public class 数的分解 {
+	public static void main(String[] args) {
+		int n = 2019;
+		int t = 0;//t/3种分解方法，初始化为0
+		loop:for (int i = 1; i < n; i++) {
+			/**
+			 * public int indexOf(int ch): 返回指定字符在字符串中第一次出现处的索引，如果此字符串中没有这样的字符，则返回 -1。
+			 * public int indexOf(int ch, int fromIndex): 返回从 fromIndex 位置开始查找指定字符在字符串中第一次出现处的索引，如果此字符串中没有这样的字符，则返回 -1。
+			 * int indexOf(String str): 返回指定字符在字符串中第一次出现处的索引，如果此字符串中没有这样的字符，则返回 -1。
+			 * int indexOf(String str, int fromIndex): 返回从 fromIndex 位置开始查找指定字符在字符串中第一次出现处的索引，如果此字符串中没有这样的字符，则返回 -1。
+			 */
+			if((i+"").indexOf("2")!=-1||(i+"").indexOf("4")!=-1)//如果正整数都不包含数字2和4，则继续往下执行loop2
+				continue;
+				/**
+				 * int类型转换为string类型
+				 * String.valueOf(i)
+				 * Integer.toString(i)
+				 * i+""
+				 * 
+				 * string类型转换为int类型
+				 * String str="50";
+				 * Integer.parseInt(str);
+				 */
+			loop2:for (int j = i+1; j < n; j++) {
+				if(i==j)//分解的三个数为i，j，k，如果i=j时，返回loop2继续执行
+					continue loop2;
+				if((j+"").indexOf("2")!=-1||(j+"").indexOf("4")!=-1)//如果正整数都不包含数字2和4，则继续往下执行
+					continue;
+				int k = n-i-j;
+				if(k<=0)//如果k<=0,则结束loop2的循环，继续执行loop
+					break loop2;
+				if(i==k)//如果i=k，返回loop2继续执行
+					continue loop2;
+				if(j==k)//如果j=k，返回loop2继续执行
+					continue loop2;
+				if((k+"").indexOf("2")!=-1||(k+"").indexOf("4")!=-1)//如果正整数都不包含数字2和4，则继续往下执行
+					continue;
+				t++;
+			}
+		}
+		System.out.println(t/3);
+	}
+}
